@@ -1,10 +1,18 @@
 # 0x01-learn_py
 ## Apply core concepts of Py to back-end development
-### projects
-* blog 
-* weather site
-* real-time chat app
 ### to learn
-* basics
-* django
+* HTML, CSS and JS
+* SQL
+* models in django
+* migrations
+* views
+* templates
+    * inheritance
+* CSRF
+* routing
+* MVC
+* forms
+    * get, post and http
+* DJ4E
+* jQuery
 * django REST framework
