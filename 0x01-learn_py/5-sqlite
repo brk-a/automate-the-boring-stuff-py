@@ -3,7 +3,7 @@
 ##single table SQL
 
 echo "Starting sqlite..."
-sqlite3 /dev/null/my.db<<'END_SQL'
+sqlite3 /dev/null/my_db.sqlite3<<'END_SQL'
 .timeout 5000
 .tables
 CREATE TABLE Users(
