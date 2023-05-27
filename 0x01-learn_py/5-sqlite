@@ -1,0 +1,30 @@
+#!/usr/bin/bash
+
+##single table SQL
+
+echo "Starting sqlite..."
+sqlite3 /dev/null/my.db<<'END_SQL'
+.timeout 5000
+.tables
+CREATE TABLE Users(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(128),
+    email VARCHAR(128),
+);
+.tables
+.schema Users
+INSERT INTO Users (name, email) VALUES
+    ('Goat Matata', 'goatmatata@anon.co.ke')
+    ("Dada Ng'ombe", 'dadangombe@anon.co.ke')
+    ('Kaka Mbweha', 'kakambweha@anon.co.ke')
+    ('Mzee Kobe', 'mzeekobe@anon.co.ke')
+    ('F Njakai', 'fnjakai@anon.co.ke')
+    ('Paka the Cat', 'pakacat@anon.co.ke');
+SELECT * FROM USERS;
+SELECT * FROM Users ORDER BY email;
+SELECT * FROM Users ORDER BY name DESC;
+SELECT * FROM Users ORDER BY email DESC LIMIT 3;
+UPDATE Users SET email='paka@anon.co.ke' WHERE email='pakacat@anon.co.ke';
+DELETE FROM Users WHERE email='fnjakai@anon.co.ke';
+END_SQL
+# exit

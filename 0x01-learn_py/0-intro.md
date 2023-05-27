@@ -60,6 +60,8 @@
     * a `View` is selected when there is a url match; _View_ handles any db access, produces a response and delivers said response to browser
         * _View_ accesses the db indirectly through an abstraction called a _model_
     * browser parses and renders
+### Virtual Hosting
+* many domains, one system
 
 [def]: www.ietf.com
 [def2]: https://www.ietf.org/standards/rfcs/
