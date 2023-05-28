@@ -1,0 +1,40 @@
+#!/usr/bin/bash
+
+##multiple table SQL
+
+echo "Starting sqlite..."
+sqlite3 /dev/null/my_db.sqlite3<<'END_SQL'
+.tables
+CREATE TABLE Users(
+    id INTEGER NOT NULL PRIMARY KEY NOT NULL AUTOINCREMENT UNIQUE,
+    name TEXT,
+    email TEXT,
+);
+.schema Users
+SELECT * FROM Users;
+INSERT INTO Users (name, email) VALUES
+    ('Goat Matata', 'goatmatata@anon.co.ke')
+    ("Dada Ng'ombe", 'dadangombe@anon.co.ke')
+    ('Kaka Mbweha', 'kakambweha@anon.co.ke')
+    ('Mzee Kobe', 'mzeekobe@anon.co.ke')
+    ('Kaka Mbwamwitu', 'kakambwamwitu@anon.co.ke')
+    ('Kaka Dubu', 'kakadubu@anon.co.ke')
+    ('Kaka Tai', 'kakatai@anon.co.ke')
+    ('F Njakai', 'fnjakai@anon.co.ke')
+    ('Paka the Cat', 'pakacat@anon.co.ke');
+SELECT * FROM Users;
+.mode column
+UPDATE Users SET email='paka@anon.co.ke' WHERE email='pakacat@anon.co.ke';
+DELETE FROM Users WHERE email='fnjakai@anon.co.ke';
+SELECT name, email FROM Users;
+SELECT * FROM Users ORDER BY email;
+SELECT * FROM Users ORDER BY name DESC;
+SELECT * FROM Users ORDER BY email DESC LIMIT 3;
+SELECT * FROM Users WHERE email='kakambweha@anon.co.ke';
+SELECT name FROM Users WHERE id>=1 AND id<6 ORDER BY name DESC;
+SELECT name FROM Users WHERE id>=1 OR id<6 ORDER BY name DESC;
+SELECT email FROM Users ORDER BY email DESC LIMIT 3;
+UPDATE Users SET name='Kaka Sungura';
+DELETE FROM Users;
+DROP TABLE Users;
+END_SQL
