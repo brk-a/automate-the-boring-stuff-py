@@ -1,0 +1,40 @@
+#!/usr/bin/bash
+
+#What happens when migrations do not work as expected?
+#Delete the db and re-do it, perhaps?
+#That is a starting point; here's more...
+
+echo "enter path to workspace"
+read $WORKSPACE
+echo "enter name of venv"
+read $VENV
+cd $WORKSPACE
+git pull
+workon $VENV
+python3 manage.py check
+rm */migrations/00*
+rm db.sqlite3
+ls -l */models.py
+echo 'running checks ...'
+python3 manage.py check
+echo 'makemigrations will run in 5 seconds ...'
+sleep 5
+python3 manage.py makemigrations
+echo 'running migration ...'
+python3 manage.py migrate
+ls -lah
+echo 'shell opening in 5 seconds ...'
+echo 'press CTRL+C to cancel'
+sleep 5
+python3 manage.py shell
+echo 'would you like to create a super user? (y/n)'
+read $SU
+if [$SU == y || $SU == Y] then
+    python3 manage.py createsuperuser
+elif [$SU == n || $SU == N] then
+    echo "That's alright"
+else
+    echo "invalid input"
+    echo "exiting ..."
+    .quit
+    exit

@@ -1,0 +1,94 @@
+#!/usr/bin/bash
+
+echo "enter path to workspace"
+read $WORKSPACE
+echo "enter name of venv"
+read $VENV
+cd $WORKSPACE
+git pull
+workon $VENV
+echo 'shell opening in 5 seconds ...'
+sleep 5
+python3 manage.py shell
+
+: '
+from 10-one_many import Artist, Album, Genre, Track;
+
+belafonte = Artist(name='Harry Belafonte')
+belafonte.save()
+belafonte.id
+king = Artist(name='Ben E. King')
+king.save()
+king.id
+nina = Arist(name='Nina Simone')
+nina.save()
+nina.id
+coolio = Artist(name='Coolio')
+coolio.save()
+coolio.id
+trace = Artist(name='Tracy Chapman')
+trace.save()
+trace.id
+Artist.objects.values()
+
+belafont = Album(title='Belafonte', artist='belafonte')
+belafont.save()
+trance = Album(title='Music Trance', artist='king')
+trance.save()
+sun = Album(title='Here Comes the Sun', artist='nina')
+sun.save()
+nuff = Album(title='\'Nuff Said!', artist='nina')
+nuff.save()
+edges = Album(title='Rough Edges', artist='king')
+edges.save()
+calypso = Album(title='Calypso', artist='belafonte')
+calypso.save()
+paradise = Album(title='Gangsta\'s Paradise', artist='coolio')
+paradise.save()
+rain = Album(title='Let It Rain', artist='trace')
+rain.save()
+thief = Album(title='It Takes A Thief', artist='coolio')
+thief.save()
+crossroads = Album(title='Crossroads', artist='trace')
+crossroads.save()
+Album.bojects.values()
+
+caly = Genre(name='Calypso')
+caly.save()
+rap = Genre(name='Hip Hop')
+rap.save()
+blues = Genre(name='Blues')
+blues.save()
+rnb = Genre(name='R\&B')
+rnb.save()
+Genre.objects.values()
+
+troubles = Track(title='Troubles', length=218 count=12 album=belafont genre=caly)
+troubles.save()
+bananaboat = Track(title='Day-O', length=182 count=62 album=belafont genre=caly)
+bananaboat.save()
+hiredgun = Track(title='Hired Gun', length=370 count=12 album=trance genre=blues)
+hiredgun.save()
+trance = Track(title='Music Trance', length=359 count=7 album=trance genre=blues)
+trance.save()
+myway = Track(title='My Way', length=309 count=12 album=sun genre=blues)
+myway.save()
+why = Track(title='Why', length=344 count=2 album=nuff genre=blues)
+why.save()
+oneman = Track(title='One Man', length=385 count=1 album=edges genre=blues)
+oneman.save()
+para = Track(title='Gansta\'s Paradise', length=241 count=50 album=paradise genre=rap)
+para.save()
+hardwired = Track(title='Hard Wired', length=211 count=8 album=rain genre=rnb)
+hardwired.save()
+Tracks.objects.values()
+
+first_key = Track.objects.get(pk=1)
+first_key
+print(first_key)
+print(first_key.genre)
+print(first_key.genre.name)
+print(first_key.album)
+print(first_key.album.artist)
+print(first_key.album.artist.name)
+'

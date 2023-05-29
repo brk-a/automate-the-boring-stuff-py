@@ -1,0 +1,57 @@
+#!/usr/bin/bash
+
+echo 'enter path to workspace'
+read $WORKSPACE
+echo 'enter name of venv'
+read $VENV
+cd $WORKSPACE
+git pull
+workon $VENV
+pip3 install -r requirements.txt
+echo 'running checks ...'
+echo 'if there are errors, press CTRL+C ...'
+python3 manage.py check
+echo 'makemigrations will run in 5 seconds ...'
+sleep 5
+python3 manage.py makemigrations
+rm db.sqlite3
+python3 manage.py migrate
+echo 'open this file; there are instructions on what to do next in the django shell'
+echo 'shell opening in 5 seconds ...'
+echo 'press CTRL+C to cancel'
+sleep 5
+python3 manage.py shell
+
+# do the following in the shell
+: ' 
+from users.models import Users
+u = User(name='Bi Buibui', email='bibuibui@anon.co.ke')
+u.save()
+u = User(name='Kaka Mbweha', email='kakambweha@anon.co.ke')
+u.save()
+u = User(name='Dada Ng\'ombe', email='dadangombe@anon.co.ke')
+u.save()
+u = User(name='Goat Matata', email='goatmatata@anon.co.ke')
+u.save()
+u = User(name='F Njakai', email='fnjakai@anon.co.ke')
+u.save()
+u = User(name='Kaka Dubu', email='kakadubu@anon.co.ke')
+u.save()
+u = User(name='Mzee Kobe', email='mzeekobe@anon.co.ke')
+u.save()
+u = User(name='Kaka Tai', email='kakatai@anon.co.ke')
+u.save()
+u = User(name='Kaka Mbwamwitu', email='kakambwamwitu@anon.co.ke')
+u.save()
+u.id 
+Users.objects.values()
+Users.objects.filter(name='Bi Buibui').values()
+Users.objects.values().order_by('email')
+Users.objects.values().order_by('name')
+Users.objects.filter(email='bibuibui@anon.co.ke').update(email='buibui@anon.co.ke')
+Users.objects.filter(email='kakambwambitu@anon.co.ke').update(email='mbwamwitu@anon.co.ke')
+Users.objects.filter(email='fnjakai@anon.co.ke').delete()
+quit()
+'
+
+#once done, use the command `.quit` in the shell. All the best
