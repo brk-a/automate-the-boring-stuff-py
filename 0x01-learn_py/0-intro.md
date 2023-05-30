@@ -90,6 +90,34 @@
     * the _models_ functionality (`_models.py_` and the db) is the model
     * the _views_ fuctionality (`_views.py_`, `_forms.py_`, `_templates_`) is the view
     * the _routing_ functionality (containing `_urls.py_`) is the controller
+### Projects, Applications ...
+* see [11-views.py](def7)
+* a project, in django, is just that; a project. the project dir is the root dir for the entire project
+* an app is a specific feature within the project. example: a coffee shop project may have apps viz: check-out, eWallet, orders section etc
+* URL dispatcher allows a clean, elegant URL scheme that has no framework limitations. to design URLs for an app, create a py module (a URLconf). this module is pure py code and is a mapping between URL path expressions to python fuctions (the views). this  mapping can be as long or short as needed; it can reference other mappings and be constructed dynamically because it is pure python code
+### Request and response objects
+* django uses  request and response objects to pass data throughout the django app
+* say a page is requested by a browser. django creates a `HttpRequest` object as the first agrument to the view function. each view is responsible for returning a `HttpRequest` object
+* the API for `HttpRequest` and `HttpResponse` objects are defined in the `django.http` module
+### Danger
+* see the `danger` and `game` functions in [12-req_res.py](def8)
+* it is dangerous to take data from the user and include it in the HTTP response w/o _escaping_ the output
+* you do not want to be _sending code_ (HTML and/or JS) to other users' browsers; in other words, you do not want anyone programming any user's browser
+* XSS (cross-site scripting) enables an attacker to inject client-side scripts into web pages viewed by a user
+* the `escape` function in `django.utils.html` makes it so that the scripts, if injected, are not interpreted and/or executed; in other words, they are _escaped_ (adding special characters, such as backslashes or quotes, that prevent the browser from treating data as code)
+### Templates
+* a template is, simply, a text file. it generates any text-based format (html, xml, csv and so on)
+    * it contains _variables_; these are replaced by values when the template is evaluated
+    * also contains _tags_; these control the logic of the template 
+* django, being a web framework, requires a convenient way to generate HTML dynamically. the most common approach relies on _templates_. a template contains the static parts of the desired HTML output and special syntax that describes how dynamic content will be inserted
+* a django project can be configured with zero or more template engines; zero means you do not use any templates
+* django has built-in back-ends for its own template system, the django template language (DTL), and for `Jinja2`, a popular alternative
+* template render process viz: data from response plus template into a render engine produces output to be rendered by the browser
+* templates are _global_; they are accessible cross-application within a project (recall: a project, in django, has one or more apps). see [`Projects, Applications...` section](def9)
+    * it is common to reuse the _name_ of a template in more than one application; a technique called _namespace_ is used to allow an app to use its own templates
+    * convention is `app_name/templates/app_name/template_name.html`; almost always, `template_name` is _detail_
+    * each template is, now, referred to using `app_name/template_name.html`
+    * _namespace_ works, in this case, because this way of reffering to a template makes the path to said template unique to that app
 
 
 [def]: www.ietf.com
@@ -98,3 +126,6 @@
 [def4]: https://en.wikipedia.org/wiki/Schema_evolution
 [def5]: https://www.techopedia.com/definition/6752/data-portability
 [def6]: #request-response-cycle
+[def7]: ./11-views.py
+[def8]: ./12-req_res.py
+[def9]: #projects-applications

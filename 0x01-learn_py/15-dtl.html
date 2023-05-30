@@ -1,0 +1,16 @@
+<!-- anything in the double curly braces is escaped by default -->
+{{ zap }} <!-- escaped by default -->
+{{ zap|safe}} <!-- escape supressed -->
+
+<!-- call a function inside the variables -->
+{% url 'cat-detail' cat.id %} <!-- show me a url for cat-detail and pick up the id-->
+{% author.get_absolute_url %} <!-- call the get_absolute_url method on author model -->
+
+<!-- logic: eg. conditionals -->
+{% if zap > 100 %} <!-- render example html when condition is true-->
+    <p>example html</p>
+{% endif %}
+
+<!-- blocks: eg. template that calls another template  -->
+{% block content %}
+{% endblock %}
