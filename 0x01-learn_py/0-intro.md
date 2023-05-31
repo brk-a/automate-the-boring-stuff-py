@@ -113,12 +113,98 @@
 * a django project can be configured with zero or more template engines; zero means you do not use any templates
 * django has built-in back-ends for its own template system, the django template language (DTL), and for `Jinja2`, a popular alternative
 * template render process viz: data from response plus template into a render engine produces output to be rendered by the browser
-* templates are _global_; they are accessible cross-application within a project (recall: a project, in django, has one or more apps). see [`Projects, Applications...` section](def9)
+* templates are _global_; they are accessible cross-application within a project (recall: a project, in django, has one or more apps). see [Projects, Applications section](def9)
     * it is common to reuse the _name_ of a template in more than one application; a technique called _namespace_ is used to allow an app to use its own templates
     * convention is `app_name/templates/app_name/template_name.html`; almost always, `template_name` is _detail_
     * each template is, now, referred to using `app_name/template_name.html`
     * _namespace_ works, in this case, because this way of reffering to a template makes the path to said template unique to that app
+* template inheritance works viz: data from response plus base template plus template unique to the view and/or app into a render engine produces output to be rendered by the browser
+### URL mapping
+* a set of functions that make it easy and convenient to read `urls.py`
+* in a project, there is a need  to obtain URLs in their final forms either for embedding in generated content or for navigation (eg redirection)
+* strongly desirable to avoid hard-coding said URLs; dangerous move is to devise _ad hoc_ mechanisms to generate URLs because they may be parallel to the design described by `URLConf`. such URLs become stale over time
+* quite clearly, a DRY mechanism is required; URL design will evolve w/o having to go over all the source code of the project to search & replace outdated URLs
+* to get a URL, we have an identification (eg. the name) of the view in charge of handling it. other pieces of info necessary are the types (positional, keyword) and values of the view arguments
 
+~~~python
+app_name = 'route'
+urlpatterns = [
+    path('',TemplateView.as_view(template_name='route/main.html')),
+    path('first',views.FirstView.as_view(), name='route/first-view'),
+    path('second',views.SecondView.as_view(), name='route/second-view'),
+]
+~~~
+
+~~~html
+<!-- route/templates/route/main.html-->
+<!-- snip -->
+<li>
+    <a href="/route/second">hard-coded to second-view (not DRY)</a>
+</li>
+<li>
+    {%url 'route:first-view'%} -> url to first-view
+</li>
+<li>
+    <a href="{%url 'route:second-vew'%}">
+        url to second-view (DRY)
+    </a>
+</li>
+<!-- snip -->
+~~~
+
+* here is how to get a view from a different app w/i the same project
+
+~~~python
+app_name = 'gview'
+urlpatterns = [
+    path('cats',views.CatListView.as_view(), name='cats'),
+    path('cat/<int:pk_from_url>',views.CatDetailView.as_view(), name='cat'),
+]
+~~~
+
+~~~html
+<!-- route/templates/route/main.html-->
+<!-- snip -->
+<li>
+    {%url 'gview:cats'%}
+    (url 'gview:cats') from gview/urls.py
+</li>
+<li>
+    {% url 'gview:cat' 42 %}
+    (url 'gview:cat' 42) from gview/urls.py
+</li>
+<!-- snip -->
+~~~
+
+* you can rename and/or add a second _namespace_ to a view; think about it as a _"second"_ namespace
+
+~~~python
+app_name = 'gview'
+urlpatterns = [
+    path('', include('home.urls'))
+    path('admin/', admin.site.urls), #keep
+    path(r'^oauth/', include('social_django.urls') namespace='social'),
+    path('hello/', include('hello.urls')),
+    path('route/', include('route.urls'), namespace='nsroute'),
+]
+~~~
+
+~~~html
+<!-- route/templates/route/main.html-->
+<!-- snip -->
+<li>
+    <a href="{%url 'route:second-view'%}">
+        url 'route:second-view'
+    </a>
+</li>
+<li>
+    {% url 'nsroute:second-view' %}
+    (url 'nsroute:second-view')
+</li>
+<!-- snip -->
+~~~
+
+* 
 
 [def]: www.ietf.com
 [def2]: https://www.ietf.org/standards/rfcs/

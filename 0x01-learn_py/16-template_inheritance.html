@@ -1,0 +1,41 @@
+<!-- template inheritance -->
+
+<!--Say we have the following template in tmpl/templates/tmpl/cond.html -->
+<html>
+    <head>
+        <title>Conditional template 1</title>
+    </head>
+    <body>
+        <p>Your guess was {{ guess }}</p>
+        {% if guess < 42 %}
+            <p>Too low</p>
+        {% elif guess > 42 %}
+            <p>Too high</p>
+        {% else %}
+            <p>Just right</p>
+        {% endif %}
+    </body>
+</html>
+
+<!-- we can split it into: a base template and a conditional one -->
+
+<!-- in tmpl/templates/tmpl/base.html -->
+<html>
+    <head>Base template</head>
+    <body>
+    {% block content%}{% endblock %}
+    </body>
+</html>
+
+<!-- in tmpl/templates/tmpl/cond2.html -->
+{% extends "tmpl/base.html" %}
+{% block content %}
+    <p>Your guess was {{ guess }}</p>
+    {% if guess < 42 %}
+        <p>Too low</p>
+    {% elif guess > 42 %}
+        <p>Too high</p>
+    {% else %}
+        <p>Just right</p>
+    {% endif %}   
+{% endblock  %}
