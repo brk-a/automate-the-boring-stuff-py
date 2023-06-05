@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="col-md-6 offset-md-3">
+    {% if user.is_authenticated %}
+    <h1>Hello, world!</h1>
+    {% else %}
+    <h1>Log In</h1>
+    <br/>
+    <form method="POST" action="{% url 'home'%}">
+        {% csrf_token %}
+        <div class="mb-3">
+            {% comment %} <label for="exampleInputEmail1" class="form-label">User name</label> {% endcomment %}
+            <input type="text" class="form-control" aria-describedby="emailHelp" name="username" placeholder="username" required>
+        </div>
+        <br/>
+        {% comment %} <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div> {% endcomment %}
+        <div class="mb-3">
+            {% comment %} <label for="exampleInputPassword1" class="form-label" >Password</label> {% endcomment %}
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="password" required>
+        </div>
+        <br/>
+        {% comment %} <div class="mb-3">
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password2" placeholder="re-type password" required>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Agree to terms and conditions</label>
+        </div> {% endcomment %}
+        <button type="submit" class="btn btn-secondary">Log in</button>
+    </form>
+</div>
+{% endif %}
+{% endblock content %}
