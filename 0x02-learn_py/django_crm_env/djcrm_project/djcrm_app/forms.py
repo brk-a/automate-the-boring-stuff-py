@@ -70,6 +70,22 @@ class AddRecordForm(forms.ModelForm):
         }),
         label=""
     )
+    position = forms.CharField(
+        required=True,
+        widget=forms.widgets.TextInput(attrs={
+            "placeholder":"Cheo",
+            "class":"form-control",
+        }),
+        label=""
+    )
+    organisation = forms.CharField(
+        required=True,
+        widget=forms.widgets.TextInput(attrs={
+            "placeholder":"Kampuni",
+            "class":"form-control",
+        }),
+        label=""
+    )
     email = forms.CharField(
         required=True,
         widget=forms.widgets.TextInput(attrs={

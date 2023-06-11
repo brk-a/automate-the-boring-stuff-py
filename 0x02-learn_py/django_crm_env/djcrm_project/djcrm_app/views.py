@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import SignUpForm
+from .forms import SignUpForm, AddRecordForm
 from . models import Record
 
 
@@ -51,7 +51,43 @@ def register_user(req):
 def customer_record(req, pk):
     if req.user.is_authenticated:
         customer_record = Record.objects.get(id=pk)
-        return render(request=req, template_name='record.html', context={'record': customer_record})
+        return render(request=req, template_name='main/record.html', context={'customer_record': customer_record})
     else:
-        messages.success(req, f'Haikufaulu. Log in kisha ujaribu tena.')
+        messages.success(req, f'Hujaidhinishwa. Log in kisha ujaribu tena.')
+        return redirect('home')
+    
+def delete_record(req, pk):
+    if req.user.is_authenticated:
+        to_delete = Record.objects.get(id=pk)
+        to_delete.delete()
+        messages.success(req, f'Imefaulu. Rekodi imefutwa.')
+        return redirect('home')
+    else:
+        messages.success(req, f'Hujaidhinishwa. Log in kisha ujaribu tena.')
+        return redirect('home')
+    
+def add_record(req):
+    form = AddRecordForm(req.POST or None)
+    if req.user.is_authenticated:
+        if req.method == 'POST':
+            if form.is_valid():
+                add_record = form.save()
+                messages.success(req, f'Imefaulu. Rekodi imeongezwa.')
+                return redirect('home')
+        return render(request=req, template_name='main/add_record.html', context={'form': form})
+    else:
+        messages.success(req, f'Hujaidhinishwa. Log in kisha ujaribu tena.')
+        return redirect('home')
+
+def update_record(req, pk):
+    if req.user.is_authenticated:
+        current_record = Record.objects.get(id=pk)
+        form = AddRecordForm(req.POST or None, instance=current_record)
+        if form.is_valid():
+            form.save()
+            messages.success(req, f'Imefaulu. Rekodi imehaririwa.')
+            return redirect('home')
+        return render(request=req, template_name='main/update_record.html', context={'form': form})
+    else:
+        messages.success(req, f'Hujaidhinishwa. Log in kisha ujaribu tena.')
         return redirect('home')

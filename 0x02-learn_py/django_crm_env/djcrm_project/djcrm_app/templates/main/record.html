@@ -1,7 +1,38 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-<div class="col-md-10 offset-md-1">
-<h1>Rekodi ya Mteja</h1>
+<div class="col-md-6 offset-md-3">
+    <div class="card">
+        <div class="card-header">
+            <h5>
+                {{customer_record.first_name }} {{customer_record.last_name }}
+            </h5>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                {% if customer_record.position and customer_record.organisation %}
+                    {{customer_record.position }}, {{customer_record.organisation }}<br>
+                {% endif %}
+            </h5>
+            
+            
+            <p class="card-text">
+                <br>
+                <strong>Kt: </strong>{{customer_record.id }}<br>
+                <strong>Baruapepe:  </strong>{{customer_record.email }}<br>
+                <strong>Nambari ya simu:  </strong>{{customer_record.phone }}<br>
+                <strong>Anwani:  </strong>{{customer_record.address }}<br>
+                <strong>Mji:  </strong>{{customer_record.city }}<br>
+                <strong>Kaunti:  </strong>{{customer_record.county }}<br>
+                <strong>Msimbo-posta:  </strong>{{customer_record.postcode }}<br>
+                <strong>Iliundwa:  </strong>{{customer_record.created_at }}<br>
+            </p>
+            {% comment %} <a href="{% url 'home' %}" class="btn btn-primary">Hariri</a> {% endcomment %}
+        </div>
+    </div>
+    <br/><br/>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Rekodi zote</a>
+    <a href="{% url 'update_record' customer_record.id %}" class="btn btn-primary">Hariri</a>
+    <a href="{% url 'delete_record' customer_record.id %}" class="btn btn-danger">Futa</a>
 </div>
 {% endblock %}
