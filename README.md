@@ -1,2 +1,1 @@
-# LearnPy
-## Revisit core concepts of Python
+# Revisit core concepts of Python
