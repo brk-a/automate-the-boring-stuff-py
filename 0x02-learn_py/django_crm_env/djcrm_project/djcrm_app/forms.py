@@ -73,7 +73,7 @@ class AddRecordForm(forms.ModelForm):
     email = forms.CharField(
         required=True,
         widget=forms.widgets.TextInput(attrs={
-            "placeholder":"Anwani",
+            "placeholder":"Baruapepe",
             "class":"form-control",
         }),
         label=""
@@ -89,7 +89,7 @@ class AddRecordForm(forms.ModelForm):
     address = forms.CharField(
         required=True,
         widget=forms.widgets.TextInput(attrs={
-            "placeholder":"Mtaa",
+            "placeholder":"Anwani",
             "class":"form-control",
         }),
         label=""
