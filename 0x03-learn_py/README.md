@@ -1,1 +1,1 @@
-# Simple social media app using django
+# Simple online marketplace app using django
