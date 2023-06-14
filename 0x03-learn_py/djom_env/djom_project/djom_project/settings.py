@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'djom_app',
+    'item_app',
 ]
 
 MIDDLEWARE = [
