@@ -17,37 +17,62 @@
         >
             <a href="/" class="text-xl font-semibold">የኤፍ Njakai የገበያ ቦታ</a>
             <div class="space-x-6">
-                <a href="#" class="text-lg font-semibold hover:text-gray-500">
+                <a href="{% url 'item_app:new_item'%}" class="text-lg font-semibold hover:text-gray-500">
                     New item
                 </a>
                 <a href="#" class="text-lg font-semibold hover:text-gray-500">
                     Browse
                 </a>
-                <a href="#" class="px-6
-                    py-3
-                    bg-gray-500
-                    text-white
-                    rounded-xl
-                    text-lg
-                    font-semibold
-                    hover:text-gray-700"
-                >
-                    Log in
-                </a>
-                <a href="#" class="px-6
-                    py-3
-                    bg-teal-500
-                    text-white
-                    rounded-xl
-                    text-lg
-                    font-semibold
-                    hover:text-teal-700"
-                >
-                    Sign up
-                </a>
+                {% if request.user.is_authenticated %}
+                    <a href="#" class="px-6
+                        py-3
+                        bg-gray-500
+                        text-white
+                        rounded-xl
+                        text-lg
+                        font-semibold
+                        hover:text-gray-700"
+                    >
+                        Inbox
+                    </a>
+                    <a href="#" class="px-6
+                        py-3
+                        bg-teal-500
+                        text-white
+                        rounded-xl
+                        text-lg
+                        font-semibold
+                        hover:text-teal-700"
+                    >
+                        Dashboard
+                    </a>
+                {% else %}
+                    <a href="{% url 'djom_app:login' %}" class="px-6
+                        py-3
+                        bg-gray-500
+                        text-white
+                        rounded-xl
+                        text-lg
+                        font-semibold
+                        hover:text-gray-700"
+                    >
+                        Log in
+                    </a>
+                    <a href="{% url 'djom_app:signup'%}" class="px-6
+                        py-3
+                        bg-teal-500
+                        text-white
+                        rounded-xl
+                        text-lg
+                        font-semibold
+                        hover:text-teal-700"
+                    >
+                        Sajili
+                    </a>
+                {% endif %}
             </div>
         </nav>
-        <div class="container">
+        <div >
             {% block content %}{% endblock content %}
         </div>
         <footer class="py-6
@@ -73,7 +98,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'contact' %}" class="text-lg text-teal-500 hover: text-teal-700">
+                        <a href="{% url 'djom_app:contact' %}" class="text-lg text-teal-500 hover: text-teal-700">
                             Contact
                         </a>
                     </li>
