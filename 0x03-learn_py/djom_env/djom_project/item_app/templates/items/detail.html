@@ -14,15 +14,45 @@
             {{item.price}}
         </p><br>
         <p class="text-gray-500">
-            <strong>Seller    </strong>
+            <strong>ሻጭ | Muuzaji    </strong>
             {{item.created_by.username}}
         </p><br>
         {% if item.description %}
         <p class="text-gray-700">
-            <strong class="text-gray-500">Description</strong><br>
+            <strong class="text-gray-500">መግለጫ | Maelezo</strong><br>
             {{item.description}}
         </p><br/>
         {% endif %}
+        {% if request.user == item.created_by %}
+        <div class="mt-6 p-6 bg-white rounded-xl">
+            <a href="#"
+                class="inline-block
+                mt-6
+                px-6
+                py-3
+                text-lg
+                font-semibold
+                bg-teal-500
+                text-white
+                rounded-xl"
+            >
+                ሰርዝመለወጥ | Hariri
+            </a>
+            <a href="{% url 'item_app:delete_item' item.id %}"
+                class="inline-block
+                mt-6
+                px-6
+                py-3
+                text-lg
+                font-semibold
+                bg-red-500
+                text-white
+                rounded-xl"
+            >
+                ሰርዝ | Futa
+            </a>
+        </div>
+        {% else %}
         <a href="#"
             class="inline-block
             mt-6
@@ -35,11 +65,12 @@
             rounded-xl
             hover:bg-teal-700"
         >
-            Contact seller
+            የእውቂያ ሻጭ | Wasiliana
         </a>
+        {% endif %}
     </div>
     <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl col-span-5">
-        <h2 class="mb-12 text-2xl text-center">Related items</h2>
+        <h2 class="mb-12 text-2xl text-center">Yanayohusiana</h2>
     
         <div class="grid grid-cols-3 gap-3">
             {% for item in related_items %}

@@ -21,6 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('djom_app.urls')),
     path('items/', include('item_app.urls')),
-    # path('item', include('item_app.urls')),
+    path('dashboard/', include('dashboard_app.urls')),
      # path('',),
 ]

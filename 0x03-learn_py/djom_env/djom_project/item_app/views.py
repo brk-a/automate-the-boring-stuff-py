@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Item
-from . forms import NewItemForm
+from . forms import NewItemForm, EditItemForm
 
 def detail(req, pk):
     item = get_object_or_404(Item, pk=pk)
@@ -14,9 +14,46 @@ def detail(req, pk):
 
 @login_required
 def new_item(req):
-    form = NewItemForm()
+    if req.method == 'POST':
+        form = NewItemForm(req.POST, req.FILES)
+        if form.is_valid():
+            item  = form.save(commit=False)
+            item.created_by = req.user
+            item.save()
+
+            return redirect('item_app:detail', pk=item.id)
+    else:
+        form = NewItemForm()
 
     return render(request=req, template_name='items/itemForm.html', context={
         'form': form,
-        'title': 'New item',
+        'title': 'Ongeza',
+    })
+
+@login_required
+def delete_item(req, pk):
+    try:
+        item = get_object_or_404(Item, pk=pk, created_by=req.user)
+    except Exception as e:
+        print(f'deleteItemError: {e}')
+        return
+    else:
+        item.delete()
+    finally:
+        redirect('dashboard_app:index')
+
+@login_required
+def edit_item(req, pk):
+    item = get_object_or_404(Item, pk=pk, created_by=req.user)
+    if req.method == 'POST':
+        form = EditItemForm(req.POST, req.FILES, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('item_app:detail', pk=item.id)
+    else:
+        form = EditItemForm(instance=item)
+
+    return render(request=req, template_name='items/itemForm.html', context={
+        'form': form,
+        'title': 'Hariri',
     })
