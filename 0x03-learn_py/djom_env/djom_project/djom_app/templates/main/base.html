@@ -20,7 +20,7 @@
                 <a href="{% url 'item_app:new_item'%}" class="text-lg font-semibold hover:text-gray-500">
                     New item
                 </a>
-                <a href="#" class="text-lg font-semibold hover:text-gray-500">
+                <a href="{% url 'item_app:items'%}" class="text-lg font-semibold hover:text-gray-500">
                     Browse
                 </a>
                 {% if request.user.is_authenticated %}

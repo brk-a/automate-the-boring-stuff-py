@@ -1,7 +1,20 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Item
 from . forms import NewItemForm, EditItemForm
+
+def items(req):
+    query = req.GET.get('query', '')
+    items = Item.objects.filter(is_sold=False)
+
+    if query:
+        items = items.filter(Q(name__icontains=query) | Q(description__icontains=query))
+
+    return render(request=req, template_name='items/items.html', context={
+        'items': items,
+        'query': query,
+    })
 
 def detail(req, pk):
     item = get_object_or_404(Item, pk=pk)

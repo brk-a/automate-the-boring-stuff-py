@@ -25,7 +25,7 @@
         {% endif %}
         {% if request.user == item.created_by %}
         <div class="mt-6 p-6 bg-white rounded-xl">
-            <a href="#"
+            <a href="{% url 'item_app:edit_item' item.id %}"
                 class="inline-block
                 mt-6
                 px-6
