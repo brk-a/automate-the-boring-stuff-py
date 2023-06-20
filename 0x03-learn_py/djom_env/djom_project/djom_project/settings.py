@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'djom_app',
     'item_app',
     'dashboard_app',
+    'conversation_app',
 ]
 
 MIDDLEWARE = [

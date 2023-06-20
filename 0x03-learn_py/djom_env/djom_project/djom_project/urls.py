@@ -22,5 +22,6 @@ urlpatterns = [
     path('', include('djom_app.urls')),
     path('items/', include('item_app.urls')),
     path('dashboard/', include('dashboard_app.urls')),
+    path('conversation/', include('conversation_app.urls')),
      # path('',),
 ]
