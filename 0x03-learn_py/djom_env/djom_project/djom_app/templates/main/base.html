@@ -18,13 +18,13 @@
             <a href="/" class="text-xl font-semibold">የኤፍ Njakai የገበያ ቦታ</a>
             <div class="space-x-6">
                 <a href="{% url 'item_app:new_item'%}" class="text-lg font-semibold hover:text-gray-500">
-                    New item
+                    አዲስ ንጥል | Mapya
                 </a>
                 <a href="{% url 'item_app:items'%}" class="text-lg font-semibold hover:text-gray-500">
-                    Browse
+                    ተመልከት | Angalia
                 </a>
                 {% if request.user.is_authenticated %}
-                    <a  href="#" class="px-6
+                    <a  href="{% url 'conversation_app:inbox' %}" class="px-6
                         py-3
                         bg-gray-500
                         text-white
@@ -33,7 +33,7 @@
                         font-semibold
                         hover:text-gray-700"
                     >
-                        Message
+                        ዲኤም  | Ujumbe
                     </a>
                     <a href="{% url 'dashboard_app:index' %}" class="px-6
                         py-3
@@ -44,7 +44,7 @@
                         font-semibold
                         hover:text-teal-700"
                     >
-                        Dashboard
+                        ዳሽቦርድ | Dashibodi
                     </a>
                 {% else %}
                     <a href="{% url 'djom_app:login' %}" class="px-6
@@ -56,7 +56,7 @@
                         font-semibold
                         hover:text-gray-700"
                     >
-                        Log in
+                        ግባ | Log in
                     </a>
                     <a href="{% url 'djom_app:signup'%}" class="px-6
                         py-3
@@ -67,7 +67,7 @@
                         font-semibold
                         hover:text-teal-700"
                     >
-                        Sajili
+                        ተመዝገቢ | Sajili
                     </a>
                 {% endif %}
             </div>

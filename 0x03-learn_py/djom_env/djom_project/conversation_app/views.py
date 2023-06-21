@@ -1,8 +1,10 @@
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
 from .models import Conversation
 from . forms import ConversationMessageForm
 from item_app.models import Item
 
+@login_required
 def new_conversation(req, item_pk):
     item = get_object_or_404(Item, pk=item_pk)
 
@@ -19,7 +21,7 @@ def new_conversation(req, item_pk):
         if form.is_valid():
             conversation = Conversation.objects.create(item=item)
             conversation.members.add(req.user)
-            conversation.add(item.created_by)
+            conversation.members.add(item.created_by)
             conversation.save()
 
             conversation_message = form.save(commit=False)
@@ -33,4 +35,12 @@ def new_conversation(req, item_pk):
 
     return render(request=req, template_name='conversations/new.html', context={
         'form': form,
+    })
+
+@login_required
+def inbox(req):
+    conversations = Conversation.objects.filter(members__in=[req.user.id])
+
+    return render(request=req, template_name='conversations/inbox.html', context={
+        'conversations' : conversations,
     })

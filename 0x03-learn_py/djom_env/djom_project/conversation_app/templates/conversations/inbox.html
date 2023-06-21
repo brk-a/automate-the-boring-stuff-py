@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+{% block title %}ዲኤም | DM{% endblock title %}
+
+{% block content %}
+<h1 class="mb-6 text-3xl">መልእክት | Message</h1>
+<div class="space-y-6">
+   {% for conversation in conversations %}
+    <a href="#">
+        <div class="p-6 flex bg-gray-100 rounded-xl">
+            <div class="pr-6">
+                <img src="{{conversation.item.image.url}}" alt="" class="w-20 rounded-xl"/>
+            </div>
+            <div class="ml-4 w-full space-y-2">
+                {% for member  in conversation.members.all %}
+                    {% if member != req.user %}
+                        <p class="mb-4">
+                            <strong>{{member.username}}</strong>  {{conversation.modified_at}}
+                        </p>
+                        <p>{{conversation.item.name}}</p>
+                    {% endif %}
+                {% endfor %}
+                {% comment %} <span>{{ conversation }}</span> {% endcomment %}
+            </div>
+        </div>
+    </a>
+   {% endfor %}
+</div>
+{% endblock %}
