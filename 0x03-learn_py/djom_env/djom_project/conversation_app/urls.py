@@ -6,5 +6,6 @@ app_name = 'conversation_app'
 urlpatterns = [
     path('new/<int:item_pk>/', views.new_conversation, name='new_conversation'),
     path('', views.inbox, name='inbox'),
+    path('<int:pk>/', views.detail, name='detail'),
     # path(''),
 ]

@@ -13,7 +13,7 @@ def new_conversation(req, item_pk):
     
     conversations = Conversation.objects.filter(item=item).filter(members__in=[req.user.id])
     if conversations:
-        pass #redirect to existing convo
+        return redirect('conversation_app:detail', pk=conversations.first().id)
 
     if req.method == 'POST':
         form = ConversationMessageForm(req.POST)
@@ -43,4 +43,28 @@ def inbox(req):
 
     return render(request=req, template_name='conversations/inbox.html', context={
         'conversations' : conversations,
+    })
+
+@login_required
+def detail(req, pk): #conversation pk, not item pk
+    conversation = Conversation.objects.filter(members__in=[req.user.id]).get(pk=pk)
+
+    if req.method == 'POST':
+        form = ConversationMessageForm(req.POST)
+
+        if form.is_valid():
+            conversation_message = form.save(commit=False)
+            conversation_message.conversation = conversation
+            conversation_message.created_by = req.user
+            conversation_message.save()
+
+            conversation.save()
+            # messages.success(req,'Your message has been sent!')
+            return redirect('conversation_app:detail', pk=pk)
+    else:
+        form = ConversationMessageForm()
+
+    return render(request=req, template_name='conversations/detail.html', context={
+        'conversation' : conversation,
+        'form': form,
     })

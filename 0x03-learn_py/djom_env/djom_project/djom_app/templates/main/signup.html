@@ -4,24 +4,24 @@
 
 {% block content %}
 <div class="w-1/3 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
-    <h1 class="mb-6 text-3xl">Sajili</h1>
+    <h1 class="mb-6 text-3xl">መመዝገብ | Sajili</h1>
     <form action="." method="post">
         {% csrf_token %}
 
         <div class="mb-3">
-            <label class="inline-block mb-2">Jina</label><br>
+            <label class="inline-block mb-2">ስም | Jina</label><br>
             {{form.username}}
         </div>
         <div class="mb-3">
-            <label class="inline-block mb-2">Baruapepe</label><br>
+            <label class="inline-block mb-2">ኢሜይል | Baruapepe</label><br>
             {{form.email}}
         </div>
         <div class="mb-3">
-            <label class="inline-block mb-2">Password</label><br>
+            <label class="inline-block mb-2">የይለፍ ቃል | Password</label><br>
             {{form.password1}}
         </div>
         <div class="mb-3">
-            <label class="inline-block mb-2">Rudia password</label><br>
+            <label class="inline-block mb-2"> የይለፍ ቃል እንደገና | Rudia password</label><br>
             {{form.password2}}
         </div>
 
@@ -43,7 +43,7 @@
             rounded-xl
             text-white"
         >
-            Sajili
+        መመዝገብ | Sajili
         </button>
     </form>
 </div>
