@@ -29,10 +29,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework.authtoken', #Used to enable token authentication
     'django_extensions', #to access abstract(ed) models
     'django_filters', #used w drf
     'rest_framework', #drf package
     'core', #new app
+    'ecommerce', #new app
 ]
 
 MIDDLEWARE = [
@@ -123,6 +125,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework_json_api.parsers.JSONParser',
     ),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework_json_api.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer'
