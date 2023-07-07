@@ -5,7 +5,9 @@ dist/
 eggs/
 .eggs/
 lib/
+*lib/
 lib64/
+*lib64/
 parts/
 wheels/
 bin/
@@ -15,6 +17,8 @@ build/
 develop-eggs/
 .Python
 .installed.cfg
+pyvenv.cfg
+*pyvenv.cfg
 pip-log.txt
 MANIFEST
 .so
