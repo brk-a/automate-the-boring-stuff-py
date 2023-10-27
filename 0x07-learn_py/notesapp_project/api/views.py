@@ -54,7 +54,7 @@ def createNote(request):
 
 @api_view(['GET'])
 def getNotes(request):
-    notes = Note.objects.all().order_by(-updated)
+    notes = Note.objects.all().order_by('-updated')
     serialiser = NoteSerialiser(notes, many=True)
     return Response(serialiser.data)
 
