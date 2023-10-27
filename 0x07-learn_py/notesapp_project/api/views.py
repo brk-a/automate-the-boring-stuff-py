@@ -45,14 +45,37 @@ def getRoutes(request):
     return Response(routes)
     # return JsonResponse(f"This API returns {routes}", safe=False)
 
+@api_view(['POST'])
+def createNote(request):
+    data = request.data
+    note = Note.objects.create(body=data['body'])
+    serialiser = NoteSerialiser(note, many=False)
+    return Response(serialiser.data)
+
 @api_view(['GET'])
 def getNotes(request):
-    notes = Note.objects.all()
+    notes = Note.objects.all().order_by(-updated)
     serialiser = NoteSerialiser(notes, many=True)
     return Response(serialiser.data)
 
 @api_view(['GET'])
 def getNote(request, pk):
-    notes = Note.objects.get(id=pk)
-    serialiser = NoteSerialiser(notes, many=False)
+    note = Note.objects.get(id=pk)
+    serialiser = NoteSerialiser(note, many=False)
     return Response(serialiser.data)
+
+@api_view(['PUT'])
+def updateNote(request, pk):
+    data = request.data
+    note = Note.objects.get(id=pk)
+    serialiser = NoteSerialiser(instance=note, data=data)
+
+    if serialiser.is_valid():
+        serialiser.save()
+    return Response(serialiser.data)
+
+@api_view(['DELETE'])
+def deleteNote(request, pk):
+    note = Note.objects.get(id=pk)
+    note.delete()
+    return Response("Note is deleted")
