@@ -1,4 +1,4 @@
 pyvenv.cfg
 __pycache__
-__init__
+__init__.py
 .env
