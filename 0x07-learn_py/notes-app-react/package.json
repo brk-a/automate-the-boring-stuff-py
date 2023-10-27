@@ -1,5 +1,6 @@
 {
   "name": "notes-app-react",
+  "proxy": "http://127.0.0.1:8000",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +11,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "next": "^14.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.17.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

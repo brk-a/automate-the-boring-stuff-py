@@ -1,8 +1,12 @@
-import React from 'react'
+
 
 const Header = () => {
   return (
-    <div>Header</div>
+    <div className="app-header">
+      <h1>
+        FN Notes
+      </h1>
+    </div>
   )
 }
 

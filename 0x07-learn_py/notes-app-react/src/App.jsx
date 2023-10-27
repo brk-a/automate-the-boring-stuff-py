@@ -1,16 +1,27 @@
-import {Header} from './components'
-import {NotesListPage} from './pages'
 import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Header } from './components'
+import { NotesListPage, NotePage } from './pages'
+
 
 function App() {
 
-  return (
-    <>
-    <h1>FN Notes</h1>
-    <Header/>
-    <NotesListPage/>
-    </>
-  )
+    return (
+        <Router>
+            <div className='container dark'>
+                <div className='app'>
+                <Header />
+                <Routes>
+                    <Route path='/' exact component={NotesListPage} />
+                    <Route path='/note/:id' component={NotePage} />
+                </Routes>
+                {/* <Routes>
+                    <Route path='/note/:id' component={NotePage} />
+                </Routes> */}
+                </div>
+            </div>
+        </Router>
+    )
 }
 
 export default App
