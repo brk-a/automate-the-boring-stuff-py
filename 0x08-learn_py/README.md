@@ -2,12 +2,12 @@
 
 create a simple [task manager]() using django RF (BE) and react.js (FE)
 <img src=""/>
-<img src=""/>
+<img src="./screenshots/Screenshot_2023-10-28_11-13-35.png"/>
 
 ### stack
 * python
 * js (ESM)
-* django (rest framework)
+* django (REST framework)
 * react.js
 
 ### what you can do
